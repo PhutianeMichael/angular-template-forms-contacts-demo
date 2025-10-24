@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Global styles entry
+   Imports the SCSS reset and provides a small area for global variables or base rules.
+*/
+
+@use 'styles/reset';
+
+/* App-level CSS variables (override as needed) */
+:root {
+  --app-primary: #1976d2; /* Material blue 700 */
+  --app-bg: #ffffff;
+  --app-text: #111113;
+}
+
+body {
+  background-color: var(--app-bg);
+  color: var(--app-text);
+}
