@@ -17,3 +17,44 @@ body {
   background-color: var(--app-bg);
   color: var(--app-text);
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.material-symbols {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  -webkit-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
+  speak: none;
+  display: inline-block;
+  line-height: 1;
+  vertical-align: middle;
+  font-size: 24px;
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  @extend .material-symbols;
+}
+
+.material-symbols-rounded {
+  font-family: 'Material Symbols Rounded';
+  @extend .material-symbols;
+}
+
+/* keep legacy Material Icons available via .material-icons class */
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
