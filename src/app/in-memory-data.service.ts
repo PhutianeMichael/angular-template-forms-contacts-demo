@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 
-export interface Contact {
+// Local Contact type to avoid import resolution issues in diagnostics
+interface Contact {
   id: number;
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
+  phone?: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -25,4 +26,3 @@ export class InMemoryDataService implements InMemoryDbService {
     return contacts && contacts.length > 0 ? Math.max(...contacts.map(c => c.id)) + 1 : 1;
   }
 }
-
