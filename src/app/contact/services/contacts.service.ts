@@ -22,7 +22,7 @@ export class ContactsService {
     );
   }
 
-  getContactById(id: number): Observable<Contact | undefined> {
+  getContactById(id: string): Observable<Contact | undefined> {
     return this.http.get<Contact>(`/api/contacts/${id}`).pipe(
       tap(value => console.debug(`ContactsService.getContactById(${id}) emitted:`, value)),
       catchError((error: HttpErrorResponse) => {

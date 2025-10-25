@@ -1,1 +1,3 @@
-<p>contact-list works!</p>
+@for (contact of contacts(); track trackById($index, contact)) {
+  <label>{{contact | json}}</label>
+}
