@@ -1,18 +1,15 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import { ContactsService } from './contact/services/contacts.service';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { JsonPipe } from '@angular/common';
 import { Contact } from './contact/models/contact.model';
-import { CrudContactsComponent } from './crud-contacts.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
   imports: [
-    CrudContactsComponent,
     RouterOutlet,
     RouterLink,
     NgOptimizedImage,
