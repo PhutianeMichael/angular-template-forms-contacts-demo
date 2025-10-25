@@ -1,1 +1,5 @@
-<p>contact-list-item works!</p>
+@if (contact) {
+  <div (click)="selectedContact.emit(contact); $event.stopPropagation()">
+    <label [for]="contact.id">{{ contact | json }}</label>
+  </div>
+}

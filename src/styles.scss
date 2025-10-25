@@ -8,12 +8,39 @@
 
 /* App-level CSS variables (override as needed) */
 :root {
-  --app-primary: #1976d2; /* Material blue 700 */
-  --app-bg: #ffffff;
-  --app-text: #111113;
+  --color-primary: #789;
+  --color-primary-light: #abc;
+  --font-color-dark-bg: #fff;
+  --color-secondary: #999;
+  --color-secondary-light: #ccc;
+  --color-error: #B22222;
+  --color-disabled-error: #F88888;
+}
+
+input,
+textarea {
+  font-size: 24px;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  color: #555;
+}
+
+select {
+  font-size: 24px;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  color: #555;
+
+}
+
+::placeholder {
+  color: #aaa;
 }
 
 body {
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  margin: 0;
   background-color: var(--app-bg);
   color: var(--app-text);
 }
@@ -31,6 +58,25 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   vertical-align: middle;
   font-size: 24px;
 }
+
+
+button {
+  position: relative;
+  font-size: 22px;
+  padding: 10px;
+  border: none;
+  color: var(--font-color-dark-bg);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button.image {
+  display: flex;
+  border-radius: 15px;
+  align-items: center;
+  padding-right: 15px;
+}
+
 
 .material-symbols-outlined {
   font-family: 'Material Symbols Outlined', sans-serif;
