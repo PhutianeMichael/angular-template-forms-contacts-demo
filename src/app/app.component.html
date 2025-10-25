@@ -1,3 +1,11 @@
-<main class="main">
-  <router-outlet />
+
+<div class="header">
+  <div class="logo" routerLink="/contacts">
+    <img [ngSrc]="'/assets/profile-circle.png'" class="profile" height="50" width="50" alt=""/>
+    <div>My Contacts</div>
+  </div>
+</div>
+
+<main class="content">
+  <router-outlet></router-outlet>
 </main>
