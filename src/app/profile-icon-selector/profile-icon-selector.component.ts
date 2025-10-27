@@ -1,8 +1,7 @@
-import { Component, forwardRef, OnInit, Provider } from '@angular/core';
+import { Component, forwardRef, Provider } from '@angular/core';
 import { profileIconNames } from './profile-icon-names';
 import { NgOptimizedImage } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DateValueAccessorDirective } from '../date-value-accessor/date-value-accessor.directive';
 
 const PROFILE_ICON_VALUE_PROVIDER: Provider = {
   provide: NG_VALUE_ACCESSOR,
@@ -27,6 +26,7 @@ export class ProfileIconSelectorComponent implements ControlValueAccessor {
 
   onChange!: Function;
   onTouched!: Function;
+
   iconSelected(icon: string) {
     this.showAllIcons = false;
     this.selectedIcon = icon;
@@ -40,10 +40,12 @@ export class ProfileIconSelectorComponent implements ControlValueAccessor {
   }
 
   registerOnChange(fn: Function) {
-    this.onChange = (icon: string) => { fn(icon) };
+    this.onChange = (icon: string) => {
+      fn(icon)
+    };
   }
 
   registerOnTouched(fn: any) {
-      this.onTouched = fn;
+    this.onTouched = fn;
   }
 }
