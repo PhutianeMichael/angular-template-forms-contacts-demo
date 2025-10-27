@@ -34,10 +34,38 @@ export class ContactsService {
 
   // Create a new contact. The in-memory API will assign an id if not provided.
   createContact(contact: Partial<Contact>): Observable<Contact> {
-    return this.http.post<Contact>('/api/contacts', contact).pipe(
+    const payload: any = { ...contact };
+    // remove empty/falsy id so the in-memory API can generate an id
+    if (!payload.id) delete payload.id;
+
+    return this.http.post<Contact>('/api/contacts', payload).pipe(
       tap(created => console.debug('ContactsService.createContact created:', created)),
       catchError((error: HttpErrorResponse) => {
         console.error('ContactsService.createContact error', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  saveContact(contact: Partial<Contact>): Observable<Contact> {
+    // Remove any empty/falsy id before POST so the server generates a new id.
+    const payload: any = { ...contact };
+    if (!payload.id) delete payload.id;
+
+    if (!contact.id) {
+      return this.http.post<Contact>('/api/contacts', payload).pipe(
+        tap(created => console.debug('ContactsService.createContact created:', created)),
+        catchError((error: HttpErrorResponse) => {
+          console.error('ContactsService.createContact error', error);
+          return throwError(() => error);
+        })
+      );
+    }
+
+    return this.http.put<Contact>(`/api/contacts/${contact.id}`, contact).pipe(
+      tap(updated => console.debug('ContactsService.updateContact updated:', updated)),
+      catchError((error: HttpErrorResponse) => {
+        console.error('ContactsService.updateContact error', error);
         return throwError(() => error);
       })
     );
