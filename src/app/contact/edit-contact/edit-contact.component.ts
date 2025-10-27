@@ -7,6 +7,8 @@ import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { delay, Subscription } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RestrictedWordsValidatorDirective } from '../../validators/restricted-words-validator.directive';
+import { DateValueAccessorDirective } from '../../date-value-accessor/date-value-accessor.directive';
+import { ProfileIconSelectorComponent } from '../../profile-icon-selector/profile-icon-selector.component';
 
 @Component({
   selector: 'app-edit-contact',
@@ -16,6 +18,8 @@ import { RestrictedWordsValidatorDirective } from '../../validators/restricted-w
     CommonModule,
     NgOptimizedImage,
     RestrictedWordsValidatorDirective,
+    DateValueAccessorDirective,
+    ProfileIconSelectorComponent,
   ],
   templateUrl: './edit-contact.component.html',
   styleUrls: ['./edit-contact.component.scss'],
@@ -27,10 +31,11 @@ export class EditContactComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
   currentContact: Contact = {
     id: '',
+    icon: '',
     personal: false,
     firstName: '',
     lastName: '',
-    dateOfBirth: '',
+    dateOfBirth: null,
     favoritesRanking: 0,
     address: {
       streetAddress: '',

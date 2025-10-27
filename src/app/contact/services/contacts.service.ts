@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { map, Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Contact } from '../models/contact.model';
 
@@ -24,7 +24,15 @@ export class ContactsService {
 
   getContactById(id: string): Observable<Contact | undefined> {
     return this.http.get<Contact>(`/api/contacts/${id}`).pipe(
-      tap(value => console.debug(`ContactsService.getContactById(${id}) emitted:`, value)),
+      tap((c) => console.debug(`ContactsService.getContactById(${id}) emitted:`, c)),
+      map(value => {
+        const dob = value.dateOfBirth ? new Date(value.dateOfBirth) : null;
+        return {
+          ...value,
+          dateOfBirth: dob
+        }
+
+      }),
       catchError((error: HttpErrorResponse) => {
         console.error('ContactsService.getContactById error', error);
         return throwError(() => error);

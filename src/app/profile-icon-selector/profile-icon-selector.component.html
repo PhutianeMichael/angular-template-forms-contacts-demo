@@ -1,0 +1,11 @@
+@if (showAllIcons) {
+<ul>
+  @for (icon of profileIcons; track icon) {
+    <li>
+      <img [ngSrc]="'/profile/' + icon" [alt]="icon" (click)="iconSelected(icon)" [class.selected]="icon === selectedIcon" width="50" height="50" priority>
+    </li>
+  }
+</ul>
+} @else {
+  <img [ngSrc]="'/profile/' + selectedIcon" [alt]="selectedIcon" (click)="showAllIcons = true" width="50" height="50" >
+}
