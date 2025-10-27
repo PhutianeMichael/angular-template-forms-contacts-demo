@@ -85,7 +85,7 @@ export class EditContactComponent implements OnInit, OnDestroy {
       this.contactsService
         .saveContact(contactForm.value)
         .pipe(delay(3000))
-        .subscribe(contact =>
+        .subscribe(() =>
           this.router.navigate(['/contacts'])))
   }
 
