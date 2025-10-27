@@ -3,9 +3,10 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContactsService } from '../services/contacts.service';
 import { addressTypeValues, Contact, phoneTypeValues } from '../models/contact.model';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { delay, Subscription } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { RestrictedWordsValidatorDirective } from '../../validators/restricted-words-validator.directive';
 
 @Component({
   selector: 'app-edit-contact',
@@ -14,6 +15,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
     FormsModule,
     CommonModule,
     NgOptimizedImage,
+    RestrictedWordsValidatorDirective,
   ],
   templateUrl: './edit-contact.component.html',
   styleUrls: ['./edit-contact.component.scss'],
@@ -95,6 +97,14 @@ export class EditContactComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subs.forEach(sub => sub.unsubscribe());
+  }
+
+  isFormInputValid(formControl: NgModel) {
+    return (formControl.touched && formControl.invalid)
+  }
+
+  formInputWithError(formControl: NgModel) {
+    return (formControl.touched && formControl.invalid) ? 'error' : '';
   }
 
 }

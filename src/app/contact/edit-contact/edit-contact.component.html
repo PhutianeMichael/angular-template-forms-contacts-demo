@@ -9,23 +9,54 @@
         <input type="hidden" [ngModel]="currentContact.id" name="id">
         <input placeholder="First Name"
                [(ngModel)]="currentContact.firstName"
+               [ngClass]="formInputWithError(firstName)"
                name="firstName"
+               minlength="3"
+               maxlength="20"
+               #firstName="ngModel"
                required/>
+        @if (firstName.errors?.['required'] && isFormInputValid(firstName)) {
+          <em>Please enter your first name</em>
+        }
+        @if (firstName.errors?.['minlength'] && isFormInputValid(firstName)) {
+          <em>First name must be at least 3 characters</em>
+        }
+        @if (firstName.errors?.['maxlength'] && isFormInputValid(firstName)) {
+          <em>First name must not exceed 20 characters</em>
+        }
         <input placeholder="Last Name"
                [(ngModel)]="currentContact.lastName"
                name="lastName"
+               [ngClass]="formInputWithError(lastName)"
+               #lastName="ngModel"
+               minlength="3"
+               maxlength="50"
                required/>
+        @if (lastName.errors?.['required'] && isFormInputValid(lastName)) {
+          <em>Please enter your last name</em>
+        }
+        @if (lastName.errors?.['minlength'] && isFormInputValid(lastName)) {
+          <em>Last name must be at least 3 characters</em>
+        }
+        @if (lastName.errors?.['maxlength'] && isFormInputValid(lastName)) {
+          <em>Last name must not exceed 50 characters</em>
+        }
         <input placeholder="Date of Birth"
                type="date"
+               [ngClass]="formInputWithError(dateOfBirth)"
                [(ngModel)]="currentContact.dateOfBirth"
+               #dateOfBirth="ngModel"
                name="dateOfBirth" required/>
+        @if (isFormInputValid(dateOfBirth)) {
+          <em>Please enter your date of birth</em>
+        }
         <div>
           <span>Favorites Ranking:</span>
           <input placeholder="Favorites Ranking"
                  [(ngModel)]="currentContact.favoritesRanking"
                  name="favoritesRanking"
                  type="range" min="0" max="5" required/>
-          <span>{{currentContact.favoritesRanking}}</span>
+          <span>{{ currentContact.favoritesRanking }}</span>
         </div>
 
         <div class="flex-item">
@@ -43,7 +74,7 @@
     <!-- Phone section -->
     <section>
       <nav>Phone</nav>
-      <div class="flex-column" ngModelGroup="phone">
+      <div class="flex-column" ngModelGroup="phone" #phoneGroup="ngModelGroup">
         <div class="flex-group">
           <input placeholder="Phone"
                  [(ngModel)]="currentContact.phone.phoneNumber"
@@ -66,28 +97,41 @@
     <section>
       <nav>Address</nav>
       <div>
-        <div class="address" ngModelGroup="address">
+        <div class="address" ngModelGroup="address" #addressGroup="ngModelGroup" [class.error]="addressGroup.invalid && addressGroup.dirty">
           <div class="flex-group">
             <input placeholder="Address" [(ngModel)]="currentContact.address.streetAddress" name="streetAddress"
-                   #streetAddress/>
+                   #streetAddress required />
             <img ngSrc="/plus-grey-blue.png" class="add" alt="" height="20" width="20"/>
           </div>
-          <input placeholder="City" [(ngModel)]="currentContact.address.city" name="city" #city/>
-          <input placeholder="State/Region" [(ngModel)]="currentContact.address.state" name="state" #state/>
+          <input placeholder="City" [(ngModel)]="currentContact.address.city" name="city" #city required/>
+          <input placeholder="State/Region" [(ngModel)]="currentContact.address.state" name="state" #state required/>
           <input placeholder="Zip/Postal Code" [(ngModel)]="currentContact.address.postalCode" name="postalCode"
-                 #postalCode/>
+                 #postalCode required/>
           <select [(ngModel)]="currentContact.address.addressType" name="addressType" #addressType>
             @for (addressType of addressTypes; track addressType.value) {
               <option [value]="addressType.value">{{ addressType.title }}</option>
             }
           </select>
         </div>
+      @if (addressGroup.invalid && addressGroup.dirty) {
+        <em>Incomplete Address</em>
+      }
       </div>
     </section>
     <section>
       <nav>Notes</nav>
       <div>
-        <textarea placeholder="Notes" name="notes" rows="3" [(ngModel)]="currentContact.notes"></textarea>
+        <textarea placeholder="Notes"
+          name="notes"
+          rows="3"
+          [class.error]="notes.invalid"
+          [(ngModel)]="currentContact.notes"
+          [restrictedWords]="['foo', 'bar']"
+          #notes="ngModel"
+        ></textarea>
+        @if (notes.errors?.['restrictedWords']) {
+          <em>Restricted words found {{notes.errors?.['restrictedWords']}}</em>
+        }
       </div>
     </section>
 
