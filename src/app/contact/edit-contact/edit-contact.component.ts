@@ -37,17 +37,17 @@ export class EditContactComponent implements OnInit, OnDestroy {
     lastName: '',
     dateOfBirth: null,
     favoritesRanking: 0,
-    address: {
+    address: [{
       streetAddress: '',
       city: '',
       state: '',
       postalCode: '',
       addressType: '',
-    },
-    phone: {
+    }],
+    phones: [{
       phoneNumber: '',
       phoneType: '',
-    },
+    }],
     notes: ''
   }
   phoneTypes = phoneTypeValues;
@@ -66,18 +66,18 @@ export class EditContactComponent implements OnInit, OnDestroy {
         if (contact) {
           this.currentContact = {
             ...contact,
-            phone: {
-              ...(contact.phone ?? {phoneNumber: '', phoneType: ''}),
-            },
-            address: {
-              ...(contact.address ?? {
+            phones: [
+              ...(contact.phones ?? [{ phoneNumber: '', phoneType: '' }])
+            ],
+            address: [
+              ...(contact.address ?? [{
                 streetAddress: '',
                 city: '',
                 state: '',
                 postalCode: '',
                 addressType: '',
-              }),
-            },
+              }])
+            ],
           } as Contact
         }
       }),
@@ -90,7 +90,7 @@ export class EditContactComponent implements OnInit, OnDestroy {
 
     this.subs.push(
       this.contactsService
-        .saveContact(contactForm.value)
+        .saveContact(this.currentContact)
         .pipe(delay(3000))
         .subscribe(() =>
           this.router.navigate(['/contacts'])))
@@ -112,4 +112,32 @@ export class EditContactComponent implements OnInit, OnDestroy {
     return (formControl.touched && formControl.invalid) ? 'error' : '';
   }
 
+  addPhone() {
+    if (!Array.isArray(this.currentContact.phones)) {
+      this.currentContact.phones = [{ phoneNumber: '', phoneType: '' }];
+    }
+    this.currentContact.phones.push({
+      phoneNumber: '',
+      phoneType: '',
+    });
+  }
+
+  addAddress() {
+    if (!Array.isArray(this.currentContact.address)) {
+      this.currentContact.address = [{
+        streetAddress: '',
+        city: '',
+        state: '',
+        postalCode: '',
+        addressType: '',
+      }];
+    }
+    this.currentContact.address.push({
+      streetAddress: '',
+      city: '',
+      state: '',
+      postalCode: '',
+      addressType: '',
+    });
+  }
 }

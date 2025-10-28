@@ -17,14 +17,14 @@
       @for (contact of favouriteContacts(); track trackById($index, contact)) {
         <tr [routerLink]="['/contacts/edit', contact.id]">
           <td>{{ contact.firstName }} {{ contact.lastName }}</td>
-          <td>@if (contact.phone) {
-            <span>{{ contact.phone.phoneNumber }}</span>
+          <td>@if (contact.phones && contact.phones.length > 0) {
+            <span>{{ contact.phones[0].phoneNumber }}</span>
           }</td>
-          @if (contact.address) {
+          @if (contact.address && contact.address.length > 0) {
             <td>
-              {{ contact.address.streetAddress }}, {{ contact.address.city }},
-              {{ contact.address.state }},
-              {{ contact.address.postalCode }}
+              {{ contact.address[0].streetAddress }}, {{ contact.address[0].city }},
+              {{ contact.address[0].state }},
+              {{ contact.address[0].postalCode }}
             </td>
           }
         </tr>
@@ -49,14 +49,14 @@
       @for (contact of contacts(); track contact.id) {
         <tr [routerLink]="['/contacts/edit', contact.id]">
           <td>{{ contact.firstName }} {{ contact.lastName }}</td>
-          <td>@if (contact.phone) {
-            <span>{{ contact.phone.phoneNumber }}</span>
+          <td>@if (contact.phones) {
+            <span>{{ contact.phones[0].phoneNumber }}</span>
           }</td>
           @if (contact.address) {
             <td>
-              {{ contact.address.streetAddress }}, {{ contact.address.city }},
-              {{ contact.address.state }},
-              {{ contact.address.postalCode }}
+              {{ contact.address[0].streetAddress }}, {{ contact.address[0].city }},
+              {{ contact.address[0].state }},
+              {{ contact.address[0].postalCode }}
             </td>
           }
         </tr>
