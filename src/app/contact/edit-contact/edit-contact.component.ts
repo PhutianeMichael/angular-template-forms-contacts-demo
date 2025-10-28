@@ -48,7 +48,7 @@ export class EditContactComponent implements OnInit, OnDestroy {
       phoneNumber: '',
       phoneType: '',
     }],
-    notes: ''
+    notes: '',
   }
   phoneTypes = phoneTypeValues;
   addressTypes = addressTypeValues;
@@ -67,7 +67,7 @@ export class EditContactComponent implements OnInit, OnDestroy {
           this.currentContact = {
             ...contact,
             phones: [
-              ...(contact.phones ?? [{ phoneNumber: '', phoneType: '' }])
+              ...(contact.phones ?? [{phoneNumber: '', phoneType: ''}]),
             ],
             address: [
               ...(contact.address ?? [{
@@ -76,7 +76,7 @@ export class EditContactComponent implements OnInit, OnDestroy {
                 state: '',
                 postalCode: '',
                 addressType: '',
-              }])
+              }]),
             ],
           } as Contact
         }
@@ -114,7 +114,7 @@ export class EditContactComponent implements OnInit, OnDestroy {
 
   addPhone() {
     if (!Array.isArray(this.currentContact.phones)) {
-      this.currentContact.phones = [{ phoneNumber: '', phoneType: '' }];
+      this.currentContact.phones = [{phoneNumber: '', phoneType: ''}];
     }
     this.currentContact.phones.push({
       phoneNumber: '',

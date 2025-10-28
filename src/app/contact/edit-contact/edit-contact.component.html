@@ -75,7 +75,7 @@
     <!-- Phone section -->
     <section>
       <nav>Phones</nav>
-      <div class="flex-column" ngModelGroup="phone"  #phoneGroup="ngModelGroup">
+      <div class="flex-column" ngModelGroup="phone" #phoneGroup="ngModelGroup">
         @for (phone of currentContact.phones; track $index; let i = $index) {
           <div class="flex-column">
             <div class="flex-group">
@@ -87,11 +87,11 @@
             <div class="radio">
               @for (phoneType of phoneTypes; track phoneType.value) {
                 <input type="radio"
-                       [id]="'phoneType.value' + i + phoneType.value"
+                       [id]="'phoneType-' + i + '-' + phoneType.value"
                        [value]="phoneType.value"
                        [(ngModel)]="phone.phoneType"
                        [name]="'phoneType' + i">
-                <label [for]="'phoneType.value' + i"> {{ phoneType.title }} </label>
+                <label [attr.for]="'phoneType-' + i + '-' + phoneType.value"> {{ phoneType.title }} </label>
               }
             </div>
           </div>
@@ -103,12 +103,13 @@
     <section>
       <nav>Address</nav>
       <div>
-        <div class="address" ngModelGroup="address" #addressGroup="ngModelGroup" [class.error]="addressGroup.invalid && addressGroup.dirty">
-            @for (address of currentContact.address; track $index; let i = $index) {
-              <div class="flex-column">
+        <div class="address" ngModelGroup="address" #addressGroup="ngModelGroup"
+             [class.error]="addressGroup.invalid && addressGroup.dirty">
+          @for (address of currentContact.address; track $index; let i = $index) {
+            <div class="flex-column">
               <div class="flex-group">
                 <input placeholder="Address" [(ngModel)]="address.streetAddress" [name]="'streetAddress' + i"
-                        required/>
+                       required/>
                 <img ngSrc="/plus-grey-blue.png" (click)="addAddress()" class="add" alt="" height="20" width="20"
                      priority/>
               </div>
@@ -121,8 +122,8 @@
                   <option [value]="addressType.value">{{ addressType.title }}</option>
                 }
               </select>
-          </div>
-            }
+            </div>
+          }
         </div>
         @if (addressGroup.invalid && addressGroup.dirty) {
           <em>Incomplete Address</em>
